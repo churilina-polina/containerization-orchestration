@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: churilina-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: churilina-app
+  template:
+    metadata:
+      labels:
+        app: churilina-app
+    spec:
+      containers:
+        - name: app
+          image: churilina-assist:5.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8035
+          envFrom:
+            - configMapRef:
+                name: churilina-config
+            - secretRef:
+                name: churilina-secret
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@churilina-postgres:5432/$(POSTGRES_DB)"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8035
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8035
+            initialDelaySeconds: 15
+            periodSeconds: 20
