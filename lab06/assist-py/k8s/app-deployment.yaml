@@ -21,7 +21,7 @@ spec:
               app: churilina-app
       containers:
         - name: app
-          image: ghcr.io/churilina-polina/containerization-orchestration:sha-efbdf46
+          image: ghcr.io/churilina-polina/containerization-orchestration:sha-НОВЫЙ
           ports:
             - containerPort: 8035
           envFrom:
