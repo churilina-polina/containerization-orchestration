@@ -32,9 +32,9 @@ class NoteCreate(BaseModel):
 @app.get("/")
 async def root():
     return {
-        "message": f"👋 Привет, {OWNER}!",
+        "message": f"👋 Привет, {OWNER}! Обновлено через CI",
         "service": "personal-assistant",
-        "version": "6.0",
+        "version": "6.1",
         "hostname": socket.gethostname(),
         "server_time": datetime.now().isoformat(timespec="seconds"),
         "endpoints": ["/health", "/me", "/notes", "/weather/{city}", "/cache/stats"],
